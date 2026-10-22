@@ -1059,6 +1059,81 @@ def inject_style():
         -webkit-font-feature-settings: 'liga' !important;
         font-feature-settings: 'liga' !important;
         -webkit-font-smoothing: antialiased !important;
+    /* ==========================================================================
+       Utility: Sembunyikan container iframe helper auto-collapse
+       ========================================================================== */
+    iframe[title="streamlit_components_v1.html"],
+    iframe[title*="components.html"],
+    div[data-testid="stCustomComponentV1"] {
+        display: none !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        position: absolute !important;
+        pointer-events: none !important;
     }
     </style>
     """, unsafe_allow_html=True)
+
+    inject_mobile_auto_collapse()
+
+
+def inject_mobile_auto_collapse():
+    """Injeksi JavaScript client-side agar sidebar otomatis minimize di layar mobile (<= 768px) saat menu dipilih."""
+    try:
+        import streamlit.components.v1 as components
+        components.html("""
+        <script>
+        (function() {
+            function setupMobileAutoCollapse() {
+                try {
+                    var p = window.parent;
+                    if (!p || !p.document) return;
+                    if (p.__salt_sidebar_auto_collapse_attached) return;
+                    p.__salt_sidebar_auto_collapse_attached = true;
+
+                    p.document.addEventListener('click', function(e) {
+                        // Hanya aktif di layar kecil / mobile (<= 768px)
+                        var isMobile = (p.innerWidth <= 768) || (p.document.documentElement && p.document.documentElement.clientWidth <= 768);
+                        if (!isMobile) return;
+
+                        // Periksa apakah klik berada di salah satu item menu navigasi radio sidebar
+                        var radioOption = e.target.closest('[data-testid="stSidebar"] [data-testid="stRadio"] label')
+                                       || e.target.closest('[data-testid="stSidebar"] [data-testid="stRadio"] [role="radiogroup"] > div');
+                        if (!radioOption) return;
+
+                        // Beri jeda singkat agar event radio terdaftar oleh Streamlit/React sebelum drawer ditutup
+                        setTimeout(function() {
+                            var sidebar = p.document.querySelector('section[data-testid="stSidebar"]');
+                            var isExpanded = sidebar ? (sidebar.getAttribute('aria-expanded') === 'true' || sidebar.classList.contains('st-emotion-cache-16txtl3')) : true;
+                            if (isExpanded) {
+                                var collapseBtn = p.document.querySelector('[data-testid="stSidebarCollapseButton"] button')
+                                               || p.document.querySelector('[data-testid="stSidebarHeader"] button')
+                                               || p.document.querySelector('[data-testid="stSidebar"] button[aria-label*="Close"]')
+                                               || p.document.querySelector('[data-testid="stSidebar"] button[aria-label*="collapse" i]');
+                                if (collapseBtn) {
+                                    collapseBtn.click();
+                                } else {
+                                    var backdrop = p.document.querySelector('[data-testid="stSidebarBackdrop"]');
+                                    if (backdrop) backdrop.click();
+                                }
+                            }
+                        }, 120);
+                    }, true);
+                } catch (err) {
+                    console.debug('Salt dashboard auto-collapse note:', err);
+                }
+            }
+
+            setupMobileAutoCollapse();
+            if (window.parent && window.parent.document && window.parent.document.readyState !== 'complete') {
+                window.parent.addEventListener('load', setupMobileAutoCollapse);
+            }
+        })();
+        </script>
+        """, height=0, width=0)
+    except Exception:
+        pass
