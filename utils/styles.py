@@ -257,9 +257,10 @@ def inject_style():
         margin-top: 4px !important;
     }
 
-    /* Radio Label: Exactly matching header button padding & geometry */
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] div[role="radiogroup"] > label {
+    /* Radio Label: Exactly matching header button padding & geometry (universal across versions) */
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label,
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"],
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
@@ -274,14 +275,21 @@ def inject_style():
         box-sizing: border-box !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:hover,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] div[role="radiogroup"] > label:hover {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label:hover,
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]:hover,
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover {
         background: #F0FDFA !important;
     }
 
-    /* Hide standard radio dot completely */
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label > div:first-child,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] div[role="radiogroup"] > label > div:first-child {
+    /* Hide standard radio dot completely (universal selector across all Streamlit versions) */
+    [data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child,
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] > div:first-child,
+    [data-testid="stSidebar"] [data-testid="stRadio"] input[type="radio"],
+    [data-testid="stSidebar"] [data-testid="stRadio"] input[type="radio"] + div,
+    [data-testid="stSidebar"] [data-testid="stRadio"] input[type="radio"] ~ div:not([data-testid="stMarkdownContainer"]),
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[class*="RadioMark"],
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[class*="StyledRadio"] > div:first-child,
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label > div:first-child {
         position: absolute !important;
         opacity: 0 !important;
         width: 0 !important;
@@ -290,10 +298,12 @@ def inject_style():
         padding: 0 !important;
         pointer-events: none !important;
         overflow: hidden !important;
+        visibility: hidden !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label p,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] div[role="radiogroup"] > label p {
+    [data-testid="stSidebar"] [data-testid="stRadio"] label p,
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] p,
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label p {
         font-weight: 500 !important;
         font-size: 0.92rem !important;
         color: #334155 !important;
@@ -301,14 +311,16 @@ def inject_style():
         transition: color 0.15s ease !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:hover p,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] div[role="radiogroup"] > label:hover p {
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:hover p,
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]:hover p,
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover p {
         color: #0F766E !important;
     }
 
     /* Base outline icon for navigation items: 20px width, aligned with hamburger */
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label::before,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] div[role="radiogroup"] > label::before {
+    [data-testid="stSidebar"] [data-testid="stRadio"] label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]::before,
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label::before {
         content: "" !important;
         display: inline-block !important;
         width: 20px !important;
@@ -325,62 +337,82 @@ def inject_style():
         transition: background-color 0.15s ease !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:hover::before,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] div[role="radiogroup"] > label:hover::before {
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:hover::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]:hover::before,
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover::before {
         background-color: #0F766E !important;
     }
 
     /* 1. Overview — Minimalist House Outline */
     [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:nth-of-type(1)::before,
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input[value*="Overview"])::before {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > div:nth-child(1) label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > div:nth-of-type(1) label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[value*="Overview"])::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[value="0"])::before {
         -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9 22 9 12 15 12 15 22'/%3E%3C/svg%3E") !important;
         mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9 22 9 12 15 12 15 22'/%3E%3C/svg%3E") !important;
     }
 
     /* 2. Eksplorasi Data — Minimalist Chart/Analytics Outline */
     [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:nth-of-type(2)::before,
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input[value*="Eksplorasi"])::before {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > div:nth-child(2) label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > div:nth-of-type(2) label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[value*="Eksplorasi"])::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[value="1"])::before {
         -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='20' x2='18' y2='10'/%3E%3Cline x1='12' y1='20' x2='12' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='14'/%3E%3Cline x1='3' y1='20' x2='21' y2='20'/%3E%3C/svg%3E") !important;
         mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='20' x2='18' y2='10'/%3E%3Cline x1='12' y1='20' x2='12' y2='4'/%3E%3Cline x1='6' y1='20' x2='6' y2='14'/%3E%3Cline x1='3' y1='20' x2='21' y2='20'/%3E%3C/svg%3E") !important;
     }
 
     /* 3. Analisis Box-Cox — Minimalist Flask Outline */
     [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:nth-of-type(3)::before,
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input[value*="Box-Cox"])::before {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > div:nth-child(3) label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > div:nth-of-type(3) label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[value*="Box-Cox"])::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[value="2"])::before {
         -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 2v7.31L4.1 19.34A1.5 1.5 0 0 0 5.4 22h13.2a1.5 1.5 0 0 0 1.3-2.66L14 9.31V2'/%3E%3Cpath d='M8.5 2h7M7 16h10'/%3E%3C/svg%3E") !important;
         mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 2v7.31L4.1 19.34A1.5 1.5 0 0 0 5.4 22h13.2a1.5 1.5 0 0 0 1.3-2.66L14 9.31V2'/%3E%3Cpath d='M8.5 2h7M7 16h10'/%3E%3C/svg%3E") !important;
     }
 
     /* 4. Evaluasi Model — Minimalist Check Circle Outline */
     [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:nth-of-type(4)::before,
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input[value*="Evaluasi"])::before {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > div:nth-child(4) label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > div:nth-of-type(4) label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[value*="Evaluasi"])::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[value="3"])::before {
         -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpolyline points='9 12 11.5 14.5 15.5 9.5'/%3E%3C/svg%3E") !important;
         mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpolyline points='9 12 11.5 14.5 15.5 9.5'/%3E%3C/svg%3E") !important;
     }
 
     /* 5. Hasil Klasifikasi — Minimalist Drawer/Threads Outline */
     [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:nth-of-type(5)::before,
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input[value*="Klasifikasi"])::before {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > div:nth-child(5) label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > div:nth-of-type(5) label::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[value*="Klasifikasi"])::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input[value="4"])::before {
         -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Cline x1='8' y1='9' x2='16' y2='9'/%3E%3Cline x1='8' y1='13' x2='14' y2='13'/%3E%3C/svg%3E") !important;
         mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Cline x1='8' y1='9' x2='16' y2='9'/%3E%3Cline x1='8' y1='13' x2='14' y2='13'/%3E%3C/svg%3E") !important;
     }
 
     /* 4. Active State — Harmonized with App Teal Palette (#0F766E) */
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked),
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) {
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked),
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]:has(input:checked),
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label:has(input:checked),
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label:has(input:checked) {
         background: linear-gradient(135deg, #0F766E 0%, #115E59 100%) !important;
         border: none !important;
         box-shadow: 0 4px 14px rgba(15, 118, 110, 0.24) !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) p,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) p {
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) p,
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]:has(input:checked) p,
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label:has(input:checked) p {
         color: #FFFFFF !important;
         font-weight: 600 !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked)::before,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked)::before {
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked)::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]:has(input:checked)::before,
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label:has(input:checked)::before {
         background-color: #FFFFFF !important;
     }
 
@@ -408,10 +440,10 @@ def inject_style():
 
         /* Hide text labels AND stMarkdownContainer in collapsed rail to prevent off-center shift */
         section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarCollapseButton"] button::after,
-        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label div[data-testid="stMarkdownContainer"],
-        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label [data-testid="stMarkdownContainer"],
-        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label p,
-        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label span {
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] label div[data-testid="stMarkdownContainer"],
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] label [data-testid="stMarkdownContainer"],
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] label p,
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] label span {
             display: none !important;
             width: 0 !important;
             height: 0 !important;
