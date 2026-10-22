@@ -1,0 +1,4 @@
+﻿Skenario,N training,Rata-rata abs skewness sebelum,Rata-rata abs skewness sesudah,Jumlah mineral berkurang,Jumlah mineral
+80:20,47,2.07662415846725,0.06783756025984664,8,8
+70:30,41,2.0118759680686784,0.058155114465255016,8,8
+60:40,35,1.9824233619460059,0.07399907075503374,8,8

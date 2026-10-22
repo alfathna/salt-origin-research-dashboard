@@ -1,0 +1,21 @@
+{
+  "status": "LOLOS",
+  "jenis": "analisis pendukung, bukan model atau eksperimen baru",
+  "model": [
+    "M0",
+    "M1",
+    "M2"
+  ],
+  "skenario": [
+    "80:20",
+    "70:30",
+    "60:40"
+  ],
+  "CSV_utama": 12,
+  "PNG_utama": 14,
+  "checksum_keluaran_utama_tidak_berubah": true,
+  "baris_diagnostik_boxcox_lintas_rasio": 24,
+  "baris_evaluasi_per_negara": 36,
+  "gambar_ringkasan_boxcox": "heatmap_skewness_boxcox_3rasio.png",
+  "catatan": "Skewness gabungan bukan uji normalitas Gaussian tiap negara; output utama M0–M2 tetap asli."
+}

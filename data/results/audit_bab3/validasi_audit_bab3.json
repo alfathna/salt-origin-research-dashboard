@@ -1,0 +1,23 @@
+{
+  "status": "LOLOS",
+  "jenis": "audit/analisis pendukung, bukan eksperimen M3 atau optimasi hiperparameter",
+  "sumber": "Garam_GNB_M0_M2_BoxCox_Final_Colab (1).ipynb",
+  "dataset_baris": 59,
+  "jumlah_CSV_utama": 12,
+  "jumlah_PNG_utama": 14,
+  "checksum_utama_tidak_berubah": true,
+  "jumlah_CSV_audit": 9,
+  "jumlah_PNG_audit": 1,
+  "rata_rata_macro_f1_utama": {
+    "M0": 60.259199134199136,
+    "M1": 68.2183621933622,
+    "M2": 86.41507936507936
+  },
+  "perbandingan_fold_M2_M1": {
+    "Lebih tinggi": 45,
+    "Sama": 2,
+    "Lebih rendah": 3
+  },
+  "jumlah_fold_M0_kontrol_prediksi_identik_dengan_M1": 50,
+  "catatan": "Skewness per kelas kecil sampel; lambda model final tidak dituning; analisis diagnostik saja."
+}

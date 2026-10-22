@@ -1,0 +1,4 @@
+﻿Perbandingan,Lebih tinggi,Sama,Lebih rendah,Total fold,Rata-rata selisih (poin persen),Toleransi seri (poin persen)
+M1 - M0,29,18,3,50,7.959163059163059,1e-10
+M2 - M1,45,2,3,50,18.19671717171717,1e-10
+M2 - M0,48,0,2,50,26.155880230880236,1e-10
