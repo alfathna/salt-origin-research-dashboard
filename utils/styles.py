@@ -257,10 +257,28 @@ def inject_style():
         margin-top: 4px !important;
     }
 
-    /* Radio Label: Exactly matching header button padding & geometry (universal across versions) */
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label,
+    /* Hide top widget label entirely (prevent black square above first menu item) */
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-testid="stWidgetLabel"],
+    [data-testid="stSidebar"] [data-testid="stRadio"] > label:not([data-baseweb="radio"]) {
+        display: none !important;
+        height: 0 !important;
+        width: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        opacity: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-testid="stWidgetLabel"]::before,
+    [data-testid="stSidebar"] [data-testid="stRadio"] > label:not([data-baseweb="radio"])::before {
+        content: none !important;
+        display: none !important;
+    }
+
+    /* Radio Item Container: Exactly matching header button padding & geometry */
     [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"],
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] label {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
@@ -275,22 +293,16 @@ def inject_style():
         box-sizing: border-box !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label:hover,
     [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]:hover,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label:hover {
         background: #F0FDFA !important;
     }
 
-    /* Hide standard radio dot completely (universal selector across all Streamlit versions) */
-    [data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-child,
-    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] > div:first-child,
-    [data-testid="stSidebar"] [data-testid="stRadio"] input[type="radio"],
-    [data-testid="stSidebar"] [data-testid="stRadio"] input[type="radio"] + div,
-    [data-testid="stSidebar"] [data-testid="stRadio"] input[type="radio"] ~ div:not([data-testid="stMarkdownContainer"]),
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[class*="RadioMark"],
-    [data-testid="stSidebar"] [data-testid="stRadio"] div[class*="StyledRadio"] > div:first-child,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] label > div:first-child {
-        position: absolute !important;
+    /* Hide standard radio dot circle ONLY — never hide label/text container */
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] > div:first-of-type:not(:has(p)),
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] > div:first-of-type:not(:has(p)) *,
+    [data-testid="stSidebar"] [data-testid="stRadio"] input[type="radio"] {
+        display: none !important;
         opacity: 0 !important;
         width: 0 !important;
         height: 0 !important;
@@ -301,26 +313,31 @@ def inject_style():
         visibility: hidden !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] label p,
+    /* Menu Text: Always clearly visible when sidebar is open */
     [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] p,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] label p {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p,
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-testid="stMarkdownContainer"],
+    [data-testid="stSidebar"] [data-testid="stRadio"] [data-testid="stMarkdownContainer"] p {
+        display: inline-block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
         font-weight: 500 !important;
         font-size: 0.92rem !important;
         color: #334155 !important;
         margin: 0 !important;
+        white-space: nowrap !important;
+        line-height: 1.4 !important;
         transition: color 0.15s ease !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] label:hover p,
     [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]:hover p,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover p {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label:hover p {
         color: #0F766E !important;
     }
 
     /* Base outline icon for navigation items: 20px width, aligned with hamburger */
-    [data-testid="stSidebar"] [data-testid="stRadio"] label::before,
     [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]::before,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] label::before {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label::before {
         content: "" !important;
         display: inline-block !important;
         width: 20px !important;
@@ -337,9 +354,8 @@ def inject_style():
         transition: background-color 0.15s ease !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadio"] label:hover::before,
     [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"]:hover::before,
-    section[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover::before {
+    [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label:hover::before {
         background-color: #0F766E !important;
     }
 
