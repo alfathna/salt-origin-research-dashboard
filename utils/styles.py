@@ -84,25 +84,26 @@ def inject_style():
         transition: width 0.22s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.22s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
 
-    /* Fixed 244px width when expanded */
-    section[data-testid="stSidebar"]:not([aria-expanded="false"]),
-    [data-testid="stSidebar"]:not([aria-expanded="false"]) {
-        width: 244px !important;
-        min-width: 244px !important;
-        max-width: 244px !important;
-    }
+    /* Fixed widths for Desktop (>= 769px) */
+    @media (min-width: 769px) {
+        section[data-testid="stSidebar"]:not([aria-expanded="false"]),
+        [data-testid="stSidebar"]:not([aria-expanded="false"]) {
+            width: 244px !important;
+            min-width: 244px !important;
+            max-width: 244px !important;
+        }
 
-    /* Fixed 68px width when collapsed */
-    section[data-testid="stSidebar"][aria-expanded="false"],
-    [data-testid="stSidebar"][aria-expanded="false"] {
-        width: 68px !important;
-        min-width: 68px !important;
-        max-width: 68px !important;
-        transform: none !important;
-        margin-left: 0 !important;
-        overflow: hidden !important;
-        background: #F8FAFC !important;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.04) !important;
+        section[data-testid="stSidebar"][aria-expanded="false"],
+        [data-testid="stSidebar"][aria-expanded="false"] {
+            width: 68px !important;
+            min-width: 68px !important;
+            max-width: 68px !important;
+            transform: none !important;
+            margin-left: 0 !important;
+            overflow: hidden !important;
+            background: #F8FAFC !important;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.04) !important;
+        }
     }
 
     /* Disable Streamlit manual drag resize handle completely */
@@ -384,138 +385,229 @@ def inject_style():
     }
 
     /* ==========================================================================
-       5. Collapsed Sidebar State: 68px Icon Rail with Centered Vertical Axis
+       5. Desktop Collapsed Sidebar State: 68px Icon Rail (min-width: 769px)
        ========================================================================== */
-    section[data-testid="stSidebar"][aria-expanded="false"] div[data-testid="stSidebarContent"] {
-        padding: 0 12px 1.5rem 12px !important;
-        width: 68px !important;
-        max-width: 68px !important;
-        box-sizing: border-box !important;
-        overflow-x: hidden !important;
+    @media (min-width: 769px) {
+        section[data-testid="stSidebar"][aria-expanded="false"] div[data-testid="stSidebarContent"] {
+            padding: 0 12px 1.5rem 12px !important;
+            width: 68px !important;
+            max-width: 68px !important;
+            box-sizing: border-box !important;
+            overflow-x: hidden !important;
+        }
+
+        section[data-testid="stSidebar"][aria-expanded="false"] div[data-testid="stSidebarUserContent"],
+        section[data-testid="stSidebar"][aria-expanded="false"] div[data-testid="stRadio"],
+        section[data-testid="stSidebar"][aria-expanded="false"] div[role="radiogroup"] {
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 44px !important;
+            max-width: 44px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Hide text labels AND stMarkdownContainer in collapsed rail to prevent off-center shift */
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarCollapseButton"] button::after,
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label div[data-testid="stMarkdownContainer"],
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label [data-testid="stMarkdownContainer"],
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label p,
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label span {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Center Header Button on the 68px rail — matches exactly 44px content area */
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarHeader"] {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 1.15rem 0 0.5rem 0 !important;
+            width: 100% !important;
+            max-width: 44px !important;
+            box-sizing: border-box !important;
+            margin: 0 auto !important;
+        }
+
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarCollapseButton"],
+        section[data-testid="stSidebar"][aria-expanded="false"] div[class*="StyledCollapseSidebarButton"],
+        section[data-testid="stSidebar"][aria-expanded="false"] div[class*="e6f82ta8"] {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 44px !important;
+            min-width: 44px !important;
+            max-width: 44px !important;
+            height: 44px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarCollapseButton"] button {
+            width: 44px !important;
+            min-width: 44px !important;
+            max-width: 44px !important;
+            height: 44px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 12px !important;
+            box-sizing: border-box !important;
+        }
+
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarCollapseButton"] button::before {
+            margin: 0 !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            width: 20px !important;
+            height: 20px !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Center all Nav Items on the 68px rail: exactly 44px width inside 44px content area */
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 0 !important;
+            width: 44px !important;
+            min-width: 44px !important;
+            max-width: 44px !important;
+            height: 44px !important;
+            margin: 4px 0 !important;
+            border-radius: 12px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Center the icon perfectly in the 44px box */
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label::before {
+            margin: 0 !important;
+            margin-right: 0 !important;
+            margin-left: 0 !important;
+            width: 20px !important;
+            height: 20px !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Active icon in collapsed rail: clean white pill with teal border & teal icon */
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) {
+            background: #FFFFFF !important;
+            border: 1.5px solid #0F766E !important;
+            box-shadow: 0 3px 12px rgba(15, 118, 110, 0.18) !important;
+        }
+
+        section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked)::before {
+            background-color: #0F766E !important;
+        }
+
+        /* Hide external floating expand button on desktop since rail's internal button is used */
+        button[data-testid="stExpandSidebarButton"],
+        div[class*="StyledOpenSidebarButton"],
+        div[class*="e1o8oa9v3"] {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        /* Push main container smoothly when rail is present on desktop */
+        div[data-testid="stAppViewContainer"]:has(section[data-testid="stSidebar"][aria-expanded="false"]) .main {
+            margin-left: 68px !important;
+        }
     }
 
-    section[data-testid="stSidebar"][aria-expanded="false"] div[data-testid="stSidebarUserContent"],
-    section[data-testid="stSidebar"][aria-expanded="false"] div[data-testid="stRadio"],
-    section[data-testid="stSidebar"][aria-expanded="false"] div[role="radiogroup"] {
-        padding: 0 !important;
-        margin: 0 !important;
-        width: 44px !important;
-        max-width: 44px !important;
-        box-sizing: border-box !important;
-    }
+    /* ==========================================================================
+       6. Mobile & Tablet Portrait Sidebar Behavior (<= 768px)
+       Never covers content! Slides off-screen when collapsed, overlays when opened.
+       ========================================================================== */
+    @media (max-width: 768px) {
+        /* When collapsed on mobile: completely hide so it NEVER covers text or cards */
+        section[data-testid="stSidebar"][aria-expanded="false"],
+        [data-testid="stSidebar"][aria-expanded="false"] {
+            display: none !important;
+            width: 0 !important;
+            min-width: 0 !important;
+            max-width: 0 !important;
+            transform: translateX(-110%) !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
 
-    /* Hide text labels AND stMarkdownContainer in collapsed rail to prevent off-center shift */
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarCollapseButton"] button::after,
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label div[data-testid="stMarkdownContainer"],
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label [data-testid="stMarkdownContainer"],
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label p,
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label span {
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
+        /* Ensure main container is 100% full width and has zero left margin */
+        div[data-testid="stAppViewContainer"] .main,
+        div[data-testid="stAppViewContainer"]:has(section[data-testid="stSidebar"][aria-expanded="false"]) .main {
+            margin-left: 0 !important;
+            width: 100% !important;
+        }
 
-    /* Center Header Button on the 68px rail — matches exactly 44px content area */
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarHeader"] {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        padding: 1.15rem 0 0.5rem 0 !important;
-        width: 100% !important;
-        max-width: 44px !important;
-        box-sizing: border-box !important;
-        margin: 0 auto !important;
-    }
+        /* When opened on mobile: clean off-canvas drawer overlay */
+        section[data-testid="stSidebar"]:not([aria-expanded="false"]),
+        [data-testid="stSidebar"]:not([aria-expanded="false"]) {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            bottom: 0 !important;
+            height: 100vh !important;
+            width: 260px !important;
+            max-width: 82vw !important;
+            z-index: 1000000 !important;
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.28) !important;
+            background: #FFFFFF !important;
+            transform: none !important;
+            display: block !important;
+        }
 
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarCollapseButton"],
-    section[data-testid="stSidebar"][aria-expanded="false"] div[class*="StyledCollapseSidebarButton"],
-    section[data-testid="stSidebar"][aria-expanded="false"] div[class*="e6f82ta8"] {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 44px !important;
-        min-width: 44px !important;
-        max-width: 44px !important;
-        height: 44px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
+        /* Mobile hamburger button to open the menu drawer */
+        button[data-testid="stExpandSidebarButton"],
+        div[class*="StyledOpenSidebarButton"],
+        div[class*="e1o8oa9v3"] {
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            position: fixed !important;
+            top: 0.65rem !important;
+            left: 0.65rem !important;
+            z-index: 999999 !important;
+            width: 38px !important;
+            height: 38px !important;
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+            border-radius: 10px !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+        }
 
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarCollapseButton"] button {
-        width: 44px !important;
-        min-width: 44px !important;
-        max-width: 44px !important;
-        height: 44px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border-radius: 12px !important;
-        box-sizing: border-box !important;
-    }
+        button[data-testid="stExpandSidebarButton"] svg,
+        button[data-testid="stExpandSidebarButton"] span {
+            display: none !important;
+        }
 
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stSidebarCollapseButton"] button::before {
-        margin: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        width: 20px !important;
-        height: 20px !important;
-        flex-shrink: 0 !important;
-    }
-
-    /* Center all Nav Items on the 68px rail: exactly 44px width inside 44px content area */
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        padding: 0 !important;
-        width: 44px !important;
-        min-width: 44px !important;
-        max-width: 44px !important;
-        height: 44px !important;
-        margin: 4px 0 !important;
-        border-radius: 12px !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Center the icon perfectly in the 44px box */
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label::before {
-        margin: 0 !important;
-        margin-right: 0 !important;
-        margin-left: 0 !important;
-        width: 20px !important;
-        height: 20px !important;
-        flex-shrink: 0 !important;
-    }
-
-    /* Active icon in collapsed rail: clean white pill with teal border & teal icon */
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked) {
-        background: #FFFFFF !important;
-        border: 1.5px solid #0F766E !important;
-        box-shadow: 0 3px 12px rgba(15, 118, 110, 0.18) !important;
-    }
-
-    section[data-testid="stSidebar"][aria-expanded="false"] [data-testid="stRadio"] div[role="radiogroup"] > label:has(input:checked)::before {
-        background-color: #0F766E !important;
-    }
-
-    /* Hide external floating expand button since the rail's internal button is perfectly aligned */
-    button[data-testid="stExpandSidebarButton"],
-    div[class*="StyledOpenSidebarButton"],
-    div[class*="e1o8oa9v3"] {
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-    }
-
-    /* Push main container smoothly when rail is present */
-    div[data-testid="stAppViewContainer"]:has(section[data-testid="stSidebar"][aria-expanded="false"]) .main {
-        margin-left: 68px !important;
+        button[data-testid="stExpandSidebarButton"]::before {
+            content: "" !important;
+            display: block !important;
+            width: 18px !important;
+            height: 18px !important;
+            background-color: #0F172A !important;
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='3' y1='5' x2='21' y2='5'/%3E%3Cline x1='3' y1='12' x2='21' y2='12'/%3E%3Cline x1='3' y1='19' x2='21' y2='19'/%3E%3C/svg%3E") !important;
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='3' y1='5' x2='21' y2='5'/%3E%3Cline x1='3' y1='12' x2='21' y2='12'/%3E%3Cline x1='3' y1='19' x2='21' y2='19'/%3E%3C/svg%3E") !important;
+            -webkit-mask-size: contain !important;
+            mask-size: contain !important;
+            -webkit-mask-repeat: no-repeat !important;
+            mask-repeat: no-repeat !important;
+            -webkit-mask-position: center !important;
+            mask-position: center !important;
+        }
     }
 
     /* ==========================================================================
