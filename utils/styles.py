@@ -755,6 +755,199 @@ def inject_style():
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
     }
 
+    /* Prevent accidental horizontal overflow across entire viewport */
+    html, body, div[data-testid="stAppViewContainer"], .main {
+        overflow-x: clip !important;
+        max-width: 100vw !important;
+    }
+
+    /* ==========================================================================
+       Responsive Design System (Mobile, Tablet, Desktop)
+       ========================================================================== */
+
+    /* 1. Medium Tablets & Small Laptops (<= 1024px) */
+    @media (max-width: 1024px) {
+        .block-container {
+            max-width: 95% !important;
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
+        }
+
+        h1 {
+            font-size: 1.85rem !important;
+        }
+
+        div[data-testid="stMetricValue"] {
+            font-size: 1.55rem !important;
+        }
+    }
+
+    /* 2. Portrait Tablets & Mobile Devices (<= 768px) */
+    @media (max-width: 768px) {
+        .block-container {
+            max-width: 100% !important;
+            padding-top: 4.2rem !important;
+            padding-bottom: 2.5rem !important;
+            padding-left: 1.15rem !important;
+            padding-right: 1.15rem !important;
+        }
+
+        /* Typography scaling */
+        h1 {
+            font-size: 1.55rem !important;
+            line-height: 1.25 !important;
+            letter-spacing: -0.025em !important;
+            margin-bottom: 0.3rem !important;
+        }
+
+        h2 {
+            font-size: 1.22rem !important;
+            margin-top: 1.35rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        h3 {
+            font-size: 1.05rem !important;
+            margin-top: 1.1rem !important;
+        }
+
+        h4 {
+            font-size: 0.92rem !important;
+        }
+
+        .salt-eyebrow {
+            font-size: 0.68rem !important;
+            padding: 4px 11px !important;
+        }
+
+        .salt-lead {
+            font-size: 0.92rem !important;
+            line-height: 1.58 !important;
+            margin-bottom: 1.25rem !important;
+        }
+
+        .salt-note {
+            padding: 12px 14px !important;
+            font-size: 0.88rem !important;
+            line-height: 1.55 !important;
+            margin: 1rem 0 1.25rem !important;
+        }
+
+        /* Responsive Columns Wrapping */
+        /* Make column blocks wrap gracefully on mobile instead of squishing */
+        div[data-testid="stHorizontalBlock"] {
+            flex-wrap: wrap !important;
+            gap: 0.75rem !important;
+        }
+
+        /* Metric cards wrap into a clean 2x2 grid */
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div[data-testid="stMetric"]) {
+            min-width: calc(50% - 0.4rem) !important;
+            flex: 1 1 calc(50% - 0.4rem) !important;
+        }
+
+        /* Chart columns and filter blocks stack vertically for optimal readability */
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(.js-plotly-plot),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div[data-testid="stDataFrame"]),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div[data-testid="stSelectbox"]),
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"]:has(div[data-testid="stMultiSelect"]) {
+            min-width: 100% !important;
+            flex: 1 1 100% !important;
+        }
+
+        /* Metric cards styling on tablet/mobile */
+        div[data-testid="stMetric"] {
+            padding: 13px 15px 11px !important;
+            border-radius: 12px !important;
+        }
+
+        div[data-testid="stMetricLabel"] {
+            font-size: 0.72rem !important;
+        }
+
+        div[data-testid="stMetricValue"] {
+            font-size: 1.4rem !important;
+        }
+
+        /* Plotly charts fit container nicely */
+        .js-plotly-plot,
+        .plot-container {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* DataFrames touch scrolling */
+        div[data-testid="stDataFrame"],
+        div[data-testid="stTable"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
+
+        /* Download buttons take full width for easy tapping */
+        div[data-testid="stDownloadButton"],
+        div[data-testid="stDownloadButton"] button {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            text-align: center !important;
+        }
+
+        /* Expanders */
+        div[data-testid="stExpander"] summary {
+            padding: 0.75rem 0.95rem !important;
+            font-size: 0.86rem !important;
+        }
+    }
+
+    /* 3. Small Mobile Phones (<= 480px) */
+    @media (max-width: 480px) {
+        .block-container {
+            padding-top: 3.8rem !important;
+            padding-bottom: 2rem !important;
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+        }
+
+        h1 {
+            font-size: 1.38rem !important;
+            line-height: 1.25 !important;
+        }
+
+        h2 {
+            font-size: 1.15rem !important;
+        }
+
+        h3 {
+            font-size: 0.98rem !important;
+        }
+
+        .salt-lead {
+            font-size: 0.88rem !important;
+            line-height: 1.5 !important;
+        }
+
+        /* All columns stack 100% on narrow phones */
+        div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+            min-width: 100% !important;
+            flex: 1 1 100% !important;
+        }
+
+        div[data-testid="stMetric"] {
+            padding: 11px 13px 9px !important;
+        }
+
+        div[data-testid="stMetricValue"] {
+            font-size: 1.25rem !important;
+        }
+
+        .salt-footer {
+            margin-top: 2.2rem !important;
+            font-size: 0.75rem !important;
+        }
+    }
+
     /* ==========================================================================
        CRITICAL: Restore Material Symbols icon font — placed LAST for cascade priority.
        Streamlit uses Material Symbols Rounded for all icons (expander arrows,
